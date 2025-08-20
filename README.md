@@ -89,7 +89,7 @@ After building the project, you can run the application. If your application is 
 
 ```bash
 cd target
-java -jar my-java-app-1.0-SNAPSHOT.jar
+java -jar zthapp-1.0-SNAPSHOT.war
 ```
 
 
