@@ -24,7 +24,7 @@ cd zthapp
 You can use the Maven Archetype plugin to generate a basic project structure. This creates a skeleton project, according to DZone.
 
 ```bash
-mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-java-app -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
+mvn archetype:generate -DgroupId=com.zthcloud.app -DartifactId=zthapp -DarchetypeArtifactId=maven-archetype-webapp -DarchetypeVersion=1.4 -DinteractiveMode=false
 ```
 
 ### -DgroupId: Your project's unique identifier (e.g., in reverse domain name format).
