@@ -29,11 +29,13 @@ You can use the Maven Archetype plugin to generate a basic project structure. Th
  -DarchetypeVersion=4.0.0 -DinteractiveMode=false
 ```
 
+```
  -DgroupId: Your project's unique identifier (e.g., in reverse domain name format).
  -DartifactId: The name of your Maven project.
- -DarchetypeArtifactId=maven-archetype-quickstart: Specifies the archetype (template) to use. maven-archetype-quickstart creates a simple JAR-based project.
+ -DarchetypeArtifactId=maven-archetype-webapp: Specifies the archetype (template) to use. maven-archetype-webapp creates a simple WAR-based project.
  -DarchetypeVersion=4.0.0: Specifies the version of the archetype to use.
  -DinteractiveMode=false: Skips the interactive prompts for project details.
+```
 
 ### 3. Understanding the Project Structure
 After the archetype generation, your project directory should look like this:
