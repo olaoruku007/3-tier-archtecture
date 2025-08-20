@@ -16,8 +16,8 @@ Apache Maven: Ensure Maven is installed and accessible from your command line. Y
 First, create a new directory for your project. This will be the root of your Maven project.
 
 ```bash
-mkdir my-java-app
-cd my-java-app
+mkdir zthapp
+cd zthapp
 ```
 
 ### 2. Initialize the Maven project (using Archetype)
@@ -37,25 +37,28 @@ mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-java-app -Dar
 After the archetype generation, your project directory should look like this:
 
 ```
-my-java-app/
+.
 ├── pom.xml
-└── src/
-    ├── main/
-    │   └── java/
-    │       └── com/mycompany/app/
-    │           └── App.java
-    └── test/
-        └── java/
-            └── com/mycompany/app/
-                └── AppTest.java
+└── src
+    └── main
+        ├── java
+        │   └── com
+        │       └── zthapp
+        │           └── UserServlet.java
+        ├── resources
+        └── webapp
+            ├── index.jsp
+            └── WEB-INF
+                └── web.xml
 ```
 
-### pom.xml: The Project Object Model file, central to Maven projects. It describes the project, its dependencies, and how it should be built.
-### src/main/java: Contains your application's source code.
-### src/test/java: Contains your unit tests.
-### target (created after build) :Houses the output of the build, including compiled classes and the packaged application artifact. This directory should be added to your version control ignore list (e.g., .gitignore).   
+#### pom.xml: The Project Object Model file, central to Maven projects. It describes the project, its dependencies, and how it should be built.
+#### src/main/java: Contains your application's source code.
+#### src/test/java: Contains your unit tests.
+#### target (created after build) :Houses the output of the build, including compiled classes and the packaged application artifact. This directory should be added to your version control ignore list (e.g., .gitignore).   
 
 ### Building the Project
+
 ### 1. Clean and install
 Use the mvn clean install command to clean the project (remove previously compiled artifacts), compile the source code, run tests, and install the resulting artifact (e.g., JAR file) into your local Maven repository.
 
