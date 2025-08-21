@@ -6,7 +6,7 @@
 
     <servlet>
         <servlet-name>UserServlet</servlet-name>
-        <servlet-class>com.zthapp.UserServlet</servlet-class>
+        <servlet-class>com.luxe.UserServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -19,5 +19,4 @@
     </welcome-file-list>
 
 </web-app>
-
 
