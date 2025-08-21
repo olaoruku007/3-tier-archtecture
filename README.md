@@ -1,4 +1,4 @@
-# 3-tier-archtecture Web application on Rocky Linux 9.6
+# 3-tier-archtecture Web application on Rocky Linux OS 9.6 
 
 ### Step 1 – Prepare the VMs
 **Create 3 Rocky Linux 9.6 VMs:**
