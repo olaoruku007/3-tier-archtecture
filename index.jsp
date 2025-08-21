@@ -1,9 +1,9 @@
 <html>
 <body>
-<h1>This drap is a java based web application and it  is running on Tomcat App Server!</h1>
+<h1>This luxe app is a java based web application and it  is running on Tomcat Application Server!</h1>
 <%
 
-   out.println("connected to DB Server: vlpsqldb01.zth.com");
+   out.println("connected to DB Server: vlpsqldb01.zth.com and it fetches the users from the MySQL Database.");
 
 %>  
 
