@@ -34,6 +34,7 @@ sudo dnf install -y epel-release vim git curl wget
   sudo dnf install -y mariadb-server
   sudo systemctl enable --now mariadb
  ```
+
 * **2. Run secure installation:**
 
      * Set root password
@@ -43,8 +44,8 @@ sudo dnf install -y epel-release vim git curl wget
 
 * **3. Create application(app) database & user:**
 
-```bash
 
+```bash
 sudo mysql -u root -p
 
 CREATE DATABASE appdb;
