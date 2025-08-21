@@ -1,6 +1,6 @@
 # 3-tier-archtecture Web application on Rocky Linux OS 9.6 
 
-### Step 1 – Prepare the VMs
+## Step 1 – Prepare the VMs
 **Create 3 Rocky Linux 9.6 VMs:**
 
 * **VM1: web01 (Websever running Nginx)**
@@ -19,6 +19,130 @@ db01 → 192.168.10.x
 
 ## Update all servers:
 
+```bash
+sudo dnf update -y
+sudo dnf install -y epel-release vim git curl wget
+```
+
+## Servers Configuration Setup:
+
+## Step 2 – Setup the Database Server (VM3:db01)
+
+* **1. Install Mysql-server or MariaDB server**
+
+  ```bash
+  sudo dnf install -y mariadb-server
+  sudo systemctl enable --now mariadb
+ ```
+* **2. Run secure installation:**
+
+     * Set root password
+     * Remove anonymous users
+     * Disallow remote root login
+     * Reload privileges
+
+* **3. Create application(app) database & user:**
+
+```bash
+
+sudo mysql -u root -p
+
+CREATE DATABASE appdb;
+CREATE USER 'appuser'@'192.168.10.%' IDENTIFIED BY 'StrongPassword123!';
+GRANT ALL PRIVILEGES ON appdb.* TO 'appuser'@'192.168.10.%';
+FLUSH PRIVILEGES;
+EXIT;
+```
+
+* **4. Allow remote connections:**
+    ```bash
+     sudo vi /etc/my.cnf.d/mariadb-server.cnf
+    ```
+   **change:**
+  ```bash
+    bind-address = 0.0.0.0
+  ```
+  **Restart mariadb:**
+
+```bash
+  sudo systemctl restart mariadb
+```
+
+* **5. Open firewall for Mariadb:**
+
+  ```bash
+  sudo firewall-cmd --permanent --add-service=mysql
+  or
+  sudo firewall-cmd --permanent --add-port=3306/tcp
+  sudo firewall-cmd --reload
+  ```
+
+##  Step 3 – Setup the Application Server (VM2:App01) 
+
+ * **3.1 Install Java**
+   
+   ```bash
+   sudo dnf install -y java-17-openjdk java-17-openjdk-devel
+  ```
+ * **3.2 Download & Install Tomcat(App Server)**
+
+```bash
+cd /opt
+sudo curl -O https://downloads.apache.org/tomcat/tomcat-10/v10.1.30/bin/apache-tomcat-10.1.30.tar.gz
+sudo tar xvf apache-tomcat-10.1.30.tar.gz
+sudo mv apache-tomcat-10.1.30 tomcat
+sudo useradd -r -m -U -d /opt/tomcat -s /bin/false tomcat
+sudo chown -R tomcat:tomcat /opt/tomcat
+```
+
+* **3.3 Create systemd Service**
+
+  ```bash
+  sudo vi /etc/systemd/system/tomcat.service
+  ```
+**Add:**
+
+```bash
+[Unit]
+Description=Apache Tomcat Web Application Container
+After=network.target
+
+[Service]
+Type=forking
+
+User=tomcat
+Group=tomcat
+
+Environment="JAVA_HOME=/usr/lib/jvm/jre"
+Environment="CATALINA_HOME=/opt/tomcat"
+Environment="CATALINA_BASE=/opt/tomcat"
+Environment="CATALINA_PID=/opt/tomcat/temp/tomcat.pid"
+Environment="CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC"
+Environment="JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"
+
+ExecStart=/opt/tomcat/bin/startup.sh
+ExecStop=/opt/tomcat/bin/shutdown.sh
+
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
+
+**Start and enable Tomcat:**
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable --now tomcat
+```
+
+* **3.4 Deploy a Sample Java App**
+ 
+ ```bash
+ sudo dnf install -y maven
+```
+
+# Steps to create a demoapp called "luxe"  
 
 ## zthapp Web Application connecting to database through user-servlet
 
@@ -40,15 +164,15 @@ A Maven project adheres to a standard directory layout to ensure consistency and
 First, create a new directory for your project. This will be the root of your Maven project.
 
 ```bash
-mkdir zthapp
-cd zthapp
+mkdir luxe
+cd luxe
 ```
 
 ### 2. Initialize the Maven project (using Archetype)
 You can use the Maven Archetype plugin to generate a basic project structure. This creates a skeleton project, according to DZone.
 
 ```bash
- mvn archetype:generate -DgroupId=com.zthcloud.app -DartifactId=zthapp \
+ mvn archetype:generate -DgroupId=com.zthcloud.app -DartifactId=luxe \
  -DarchetypeArtifactId=maven-archetype-webapp \
  -DinteractiveMode=false
 ```
@@ -145,6 +269,7 @@ After building the project, you can run the application. If your application is 
 cd target
 java -jar zthapp-1.0-SNAPSHOT.war
 ```
+
 
 
 ### Note: Replace my-java-app-1.0-SNAPSHOT.jar with the actual name of your generated JAR file.
