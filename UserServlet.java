@@ -1,9 +1,9 @@
-package com.zthapp;
+package com.luxe;
 
 import java.io.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.WebServlet;
+//import jakarta.servlet.annotation.WebServlet;
 import java.sql.*;
 
 
@@ -24,8 +24,8 @@ public class UserServlet extends HttpServlet {
             ResultSet rs = stmt.executeQuery("SELECT id, name, email FROM users");
 
             out.println("<html><body>");
-            out.println("<h2>Users from MySQL Database:</h2>");
-            out.println("<table border='1'><tr><th>ID</th><th>Name</th><th>Email</th></tr>");
+            out.println("<h2>Users from MySQL(MariaDB) Database :</h2>");
+            out.println("<table border='1'><tr><th>ID</th><th>First_Name</th><th>School_Email</th></tr>");
             while (rs.next()) {
                 out.println("<tr><td>" + rs.getInt("id") + "</td><td>" 
                     + rs.getString("name") + "</td><td>" 
