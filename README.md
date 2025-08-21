@@ -3,11 +3,11 @@
 ### Step 1 – Prepare the VMs
 **Create 3 Rocky Linux 9.6 VMs:**
 
-* **VM1: web01 (Nginx)**
+* **VM1: web01 (Websever running Nginx)**
 
-* **VM2: app01 (App server- running tomcat 10)**
+* **VM2: app01 (App-server- running tomcat 10)**
 
-* **VM3: db01 (MySQL)**
+* **VM3: db01 (Database Engine running MySQL/MariaDB)**
 
 ## Assign static private IPs (so they can talk to each other). Example:
 
